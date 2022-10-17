@@ -2,6 +2,7 @@
 import { Layout, Text, Page, Link, Code } from "@vercel/examples-ui";
 import { ethers } from "ethers";
 import { FC } from "react";
+import useSWR from "swr";
 import abi from "../lib/BAYC.abi.json";
 import { BORED_APE_YATCH_CLUB_ADDRESS } from "../constants";
 
@@ -19,7 +20,9 @@ const Snippet: FC = ({ children }) => {
   );
 };
 
-function Home({ contractName }: { contractName: string }) {
+function Home() {
+  const { data } = useSWR<string>("name", () => contract.name());
+
   return (
     <Page>
       <section className="flex flex-col gap-6">
@@ -145,7 +148,7 @@ const { data } = useSWR('name', () => contract.name())
           That's it! Now if we use the <Code>contractName</Code> prop its value
           should be:
         </Text>
-        <Snippet>{contractName}</Snippet>
+        <Snippet>{data}</Snippet>
       </section>
     </Page>
   );
@@ -154,13 +157,3 @@ const { data } = useSWR('name', () => contract.name())
 Home.Layout = Layout;
 
 export default Home;
-
-export async function getServerSideProps() {
-  const contractName = await contract.name();
-
-  return {
-    props: {
-      contractName,
-    },
-  };
-}
