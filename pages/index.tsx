@@ -1,23 +1,23 @@
 /* eslint-disable react/no-unescaped-entities */
-import { Layout, Text, Page, Link, Code } from '@vercel/examples-ui'
-import { ethers } from 'ethers'
-import { FC } from 'react'
-import abi from '../lib/BAYC.abi.json'
-import { BORED_APE_YATCH_CLUB_ADDRESS } from '../constants'
+import { Layout, Text, Page, Link, Code } from "@vercel/examples-ui";
+import { ethers } from "ethers";
+import { FC } from "react";
+import abi from "../lib/BAYC.abi.json";
+import { BORED_APE_YATCH_CLUB_ADDRESS } from "../constants";
 
 const contract = new ethers.Contract(
   BORED_APE_YATCH_CLUB_ADDRESS,
   abi,
   ethers.getDefaultProvider()
-)
+);
 
 const Snippet: FC = ({ children }) => {
   return (
     <pre className="border-accents-2 border rounded-md bg-white overflow-x-auto p-6 transition-all">
       {children}
     </pre>
-  )
-}
+  );
+};
 
 function Home({ contractName }: { contractName: string }) {
   return (
@@ -26,7 +26,7 @@ function Home({ contractName }: { contractName: string }) {
         <Text variant="h1">Fetching data from smart contracts</Text>
         <Text>
           Smart contracts contain relevant information to applications built on
-          top of blockchains that can run the{' '}
+          top of blockchains that can run the{" "}
           <Link
             target="_blank"
             rel="noreferrer"
@@ -35,23 +35,23 @@ function Home({ contractName }: { contractName: string }) {
             Ethereum Virtual Machine
           </Link>
           . Some of the information in these contracts can be exposed in the
-          form of{' '}
+          form of{" "}
           <Link
             target="_blank"
             rel="noreferrer"
             href="https://www.tutorialspoint.com/solidity/solidity_view_functions.htm"
           >
-            View functions{' '}
+            View functions{" "}
           </Link>
-          that do not need{' '}
+          that do not need{" "}
           <Link
             target="_blank"
             rel="noreferrer"
             href="https://ethereum.org/en/developers/docs/gas/"
           >
-            {' '}
+            {" "}
             gas or fees
-          </Link>{' '}
+          </Link>{" "}
           to be executed. Now we will explore how to get that information in
           Next.js
         </Text>
@@ -60,15 +60,15 @@ function Home({ contractName }: { contractName: string }) {
           Instanciating a connection to the smart contract
         </Text>
         <Text>
-          A first step needed to contact these smart contracts via{' '}
+          A first step needed to contact these smart contracts via{" "}
           <Link
             target="_blank"
             rel="noreferrer"
             href="https://en.wikipedia.org/wiki/Remote_procedure_call"
           >
             RPC
-          </Link>{' '}
-          is to instanciate a connection with them using a library like{' '}
+          </Link>{" "}
+          is to instanciate a connection with them using a library like{" "}
           <Link
             target="_blank"
             rel="noreferrer"
@@ -76,18 +76,18 @@ function Home({ contractName }: { contractName: string }) {
           >
             Ethers.js
           </Link>
-          . There are also convenient libraries like{' '}
+          . There are also convenient libraries like{" "}
           <Link
             target="_blank"
             rel="noreferrer"
             href="https://github.com/dethcrypto/TypeChain"
           >
             Typechain
-          </Link>{' '}
+          </Link>{" "}
           to help in this process.
         </Text>
         <Text>
-          The{' '}
+          The{" "}
           <Link
             href="https://www.quicknode.com/guides/solidity/what-is-an-abi"
             target="_blank"
@@ -95,14 +95,14 @@ function Home({ contractName }: { contractName: string }) {
           >
             ABI
           </Link>
-          {''} contains information about the available function and{' '}
+          {""} contains information about the available function and{" "}
           <Link
             target="_blank"
             rel="noreferrer"
             href="https://cryptomarketpool.com/how-to-get-a-smart-contracts-abi-for-use-in-python-web3-py/"
           >
             can be obtained through Etherscan.
-          </Link>{' '}
+          </Link>{" "}
           We will use the Bored Ape Yatch Club popular NFT contract.
         </Text>
         <Snippet>
@@ -118,7 +118,7 @@ const contract = new ethers.Contract(contractAddress, abi)
         <Text>
           This can now be used in <Code>getStaticProps</Code> or
           <Code>getServerSideProps </Code> to pre-render the contract
-          information, or client-side with{' '}
+          information, or client-side with{" "}
           <Link href="https://swr.vercel.app/" target="_blank" rel="noreferrer">
             SWR
           </Link>
@@ -148,20 +148,19 @@ const { data } = useSWR('name', () => contract.name())
         <Snippet>{contractName}</Snippet>
       </section>
     </Page>
-  )
+  );
 }
 
-Home.Layout = Layout
+Home.Layout = Layout;
 
-export default Home
+export default Home;
 
-export async function getStaticProps() {
-  const contractName = await contract.name()
+export async function getServerSideProps() {
+  const contractName = await contract.name();
 
   return {
-    revalidate: 3600,
     props: {
       contractName,
     },
-  }
+  };
 }
