@@ -20,8 +20,8 @@ const Snippet: FC = ({ children }) => {
   );
 };
 
-function Home() {
-  const { data } = useSWR<string>("name", () => contract.name());
+function Home({ contractName }: { contractName: string }) {
+  // const { data } = useSWR<string>("name", () => contract.name());
 
   return (
     <Page>
@@ -148,7 +148,7 @@ const { data } = useSWR('name', () => contract.name())
           That's it! Now if we use the <Code>contractName</Code> prop its value
           should be:
         </Text>
-        <Snippet>{data}</Snippet>
+        <Snippet>{contractName}</Snippet>
       </section>
     </Page>
   );
@@ -158,4 +158,12 @@ Home.Layout = Layout;
 
 export default Home;
 
-export async function getServerSideProps() {}
+export async function getServerSideProps() {
+  const contractName = await contract.name();
+
+  return {
+    props: {
+      contractName,
+    },
+  };
+}
