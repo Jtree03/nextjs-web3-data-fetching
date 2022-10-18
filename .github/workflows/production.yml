@@ -25,5 +25,5 @@ jobs:
         uses: peter-evans/commit-comment@v2
         with:
           body: |
-            ### ✅✅✅ Vercel Deploy Success ✅✅✅
+            ### Vercel Production Deploy Success ✅
             ${{ steps.deploy_step.outputs.console }}
