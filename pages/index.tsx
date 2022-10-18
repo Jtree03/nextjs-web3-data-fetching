@@ -157,3 +157,5 @@ const { data } = useSWR('name', () => contract.name())
 Home.Layout = Layout;
 
 export default Home;
+
+export async function getServerSideProps() {}
