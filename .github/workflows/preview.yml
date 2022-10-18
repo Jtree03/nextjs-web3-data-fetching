@@ -18,7 +18,7 @@ jobs:
       - name: Build Project Artifacts
         run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
       - name: Deploy Project Artifacts to Vercel
-        run: echo "console=$(vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }})\n" >> $GITHUB_OUTPUT
+        run: echo "console=$(vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }})" >> $GITHUB_OUTPUT
         id: deploy_step
       - name: Comment URL for this commit
         uses: peter-evans/commit-comment@v2
