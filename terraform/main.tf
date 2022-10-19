@@ -7,7 +7,9 @@ terraform {
   }
 }
 
-provider "cloudflare" {}
+provider "cloudflare" {
+  api_token = var.api_token
+}
 
 resource "cloudflare_pages_project" "next_project" {
   account_id        = var.account_id
