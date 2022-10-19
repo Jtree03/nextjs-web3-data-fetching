@@ -1,8 +1,20 @@
-variable "api_token" {
+variable "cloudflare_api_token" {
   type = string
 }
 
-variable "account_id" {
+variable "cloudflare_account_id" {
+  type = string
+}
+
+variable "aws_access_key" {
+  type = string
+}
+
+variable "aws_secret_key" {
+  type = string
+}
+
+variable "aws_route53_name" {
   type = string
 }
 
