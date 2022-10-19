@@ -59,3 +59,9 @@ resource "cloudflare_pages_project" "next_project" {
     ]
   }
 }
+
+resource "cloudflare_pages_domain" "pages_domain" {
+  account_id   = var.account_id
+  project_name = cloudflare_pages_project.next_project.name
+  domain       = var.domain
+}
