@@ -11,13 +11,15 @@ on:
 jobs:
   Deploy-Production:
     runs-on: ubuntu-latest
-    environment: Production
+    environment:
+      name: Production
+      url: ${{ steps.deploy_step.outputs.console }}
     steps:
       - uses: actions/checkout@v2
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
       - name: Pull Vercel Environment Information
-        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel pull --yes --environment=production --scope={{ secrets.VERCEL_SCOPE }} --token=${{ secrets.VERCEL_TOKEN }}
       - name: Build Project Artifacts
         run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
       - name: Deploy Project Artifacts to Vercel
